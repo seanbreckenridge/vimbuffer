@@ -9,7 +9,7 @@ def get_editor(editors=[]):
     editors: list of kwargs passed by user
 
     Evaluates editors specified by this order:
-    
+
     - `$VIMBUFFER_EDITOR`
     - `editor`(s) passed as keyword arguments in python
     - `$EDITOR`
@@ -42,7 +42,7 @@ def get_editor(editors=[]):
 
 def buffer(string=None, file=None, editor=None, fallbacks=[], name_prefix=None):
     """
-    Provide one of: 
+    Provide one of:
         string: A string to edit in a vimbuffer
         filepath: A file to edit in a vimbuffer
     If neither is provided, uses an empty string
@@ -69,13 +69,17 @@ def buffer(string=None, file=None, editor=None, fallbacks=[], name_prefix=None):
                 "You cannot specify both `string` and `file` as input for a buffer"
             )
 
-    with tempfile.NamedTemporaryFile(prefix=name_prefix) as tf:
-        tf.write(string.encode())
-        tf.flush()
-        subprocess.call([EDITOR, tf.name])
-        # once user has closed the file
-        tf.seek(0)
-        edited_string = tf.read().decode("utf-8")
+
+    tf = tempfile.NamedTemporaryFile(prefix=name_prefix, delete=False)
+    tf.write(string.encode())
+    tf.flush()
+    subprocess.call([EDITOR, tf.name])
+    # cant seek to 0 and try to re-read, that has some issues (e.g. with vim on mac)
+    # close and re-open the file
+    tf.close()
+    with open(tf.name, 'r') as mod_tf:
+        edited_string = mod_tf.read()
+    os.remove(tf.name)
 
     if file:
         with open(file, "w") as f:
