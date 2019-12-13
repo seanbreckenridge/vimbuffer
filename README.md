@@ -10,8 +10,9 @@ Installation
 
 - python3+
 
-    pip3 install vimbuffer
-
+```
+pip3 install vimbuffer
+```
 
 Usage
 ------------
@@ -62,7 +63,7 @@ By <your-name>
 edited_desc = vimbuffer.buffer(project_description, fallbacks=["nvim", "vim", "vi", "nano"])
 ```
 
-Alternatively, if you want to leave your `$EDITOR` as a graphical text editor, you can set the `$VIMBUFFER_EDITOR` environment variable, which trumps all other choices. In particular, the resolution order is:
+Alternatively, if you want to leave your `$EDITOR` as a graphical text editor, you can set the `$VIMBUFFER_EDITOR` environment variable, which trumps all other choices. Specifically, the resolution order is:
 
 - `$VIMBUFFER_EDITOR`
 - `fallbacks`(s) passed as keyword arguments in python
@@ -75,4 +76,6 @@ The `name_prefix` exists as a kwarg since temporary files have names that are ra
 Tests
 ----------
 
-    pytest
+```
+pytest
+```
