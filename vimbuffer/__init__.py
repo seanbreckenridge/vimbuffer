@@ -23,13 +23,9 @@ def get_editor(editors=[]):
             str.strip,
             filter(
                 None,
-                [
-                    os.environ.get("VIMBUFFER_EDITOR"),
-                    *editors,
-                    os.environ.get("EDITOR"),
-                    "vim",
-                    "vi",
-                ],
+                [os.environ.get("VIMBUFFER_EDITOR")]
+                + editors
+                + [os.environ.get("EDITOR"), "vim", "vi",],
             ),
         )
     )
@@ -37,7 +33,11 @@ def get_editor(editors=[]):
         if shutil.which(e):
             return e
     else:
-        raise RuntimeError("Could not find any binaries that correspond to the editors: {}".format(editor_list))
+        raise RuntimeError(
+            "Could not find any binaries that correspond to the editors: {}".format(
+                editor_list
+            )
+        )
 
 
 def buffer(string=None, file=None, editor=None, fallbacks=[], name_prefix=None):
@@ -65,7 +65,9 @@ def buffer(string=None, file=None, editor=None, fallbacks=[], name_prefix=None):
             string = ""
     else:
         if file:
-            raise ValueError("You cannot specify both `string` and `file` as input for a buffer")
+            raise ValueError(
+                "You cannot specify both `string` and `file` as input for a buffer"
+            )
 
     with tempfile.NamedTemporaryFile(prefix=name_prefix) as tf:
         tf.write(string.encode())
@@ -80,4 +82,3 @@ def buffer(string=None, file=None, editor=None, fallbacks=[], name_prefix=None):
             f.write(edited_string)
 
     return edited_string
-
