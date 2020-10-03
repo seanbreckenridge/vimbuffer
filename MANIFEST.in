@@ -2,7 +2,5 @@ include LICENSE
 include README.md
 exclude Makefile
 exclude .travis.yml
-
-recursive-exclude * __pycache__
-recursive-exclude * *.py[co]
-recursive-exclude tests
+recursive-exclude tests *py
+tags*
