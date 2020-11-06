@@ -3,5 +3,5 @@ include README.md
 include mypy.ini
 exclude Makefile
 exclude .travis.yml
+recursive-include vimbuffer *.typed
 recursive-exclude tests *py
-tags*
