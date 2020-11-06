@@ -4,4 +4,3 @@ import vimbuffer
 # to make sure that it builds fine on specific python versions
 def test_version():
     pass
-

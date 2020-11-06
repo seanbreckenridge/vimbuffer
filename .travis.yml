@@ -8,6 +8,5 @@ install:
   - pip install pytest mypy
   - python3 setup.py install
 script:
- - pytest
- - mypy ./vimbuffer/
-
+  - pytest
+  - mypy ./vimbuffer/

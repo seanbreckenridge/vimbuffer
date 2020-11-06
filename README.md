@@ -1,10 +1,8 @@
-vimbuffer
-======
+# vimbuffer
 
 Edit files and strings in temporary vim (or some other console editor) buffers.
 
-Installation
-------------
+## Installation
 
 #### Requires:
 
@@ -14,8 +12,7 @@ Installation
 pip3 install vimbuffer
 ```
 
-Usage
-------------
+## Usage
 
 There's just the one function, `buffer`:
 
@@ -41,7 +38,7 @@ vimbuffer.buffer(string: Union[str, NoneType] = None,
 
 The editor can be overwritten by specifying environment variables, see below for resolution order.
 
-##### Examples 
+##### Examples
 
 ```
 import vimbuffer
@@ -56,7 +53,7 @@ vimbuffer.buffer(file=os.path.expanduser("~/.bashrc"), name_prefix="bashrc-")
 
 This uses [`tempfile`](https://docs.python.org/3.8/library/tempfile.html) to create temporary files on the system, and launches vim against them. If the environment variable `$EDITOR` is set to a graphical text editor, the process (which in this case would just launch the graphical editor) would end before the user had a chance to edit it. I recommend using terminal text editors instead.
 
-You can specify a list of fallback editors;  one you'd like to use instead of `$EDITOR`:
+You can specify a list of fallback editors; one you'd like to use instead of `$EDITOR`:
 
 ```
 project_description="""
@@ -79,8 +76,7 @@ Alternatively, if you want to leave your `$EDITOR` as a graphical text editor, y
 
 The `name_prefix` exists as a kwarg since temporary files have names that are randomly generated. By passing a prefix, the name becomes something like `/tmp/bashrc-sd43Jds`, so it may give a hint as to which file/what you're editing
 
-Tests
-----------
+## Tests
 
 ```
 pytest
