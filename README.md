@@ -8,7 +8,7 @@ Installation
 
 #### Requires:
 
-- python3+
+- python3.6+
 
 ```
 pip3 install vimbuffer
@@ -20,18 +20,23 @@ Usage
 There's just the one function, `buffer`:
 
 ```
-vimbuffer.buffer(string=None, file=None, editor=None, fallbacks=[], name_prefix=None)
-    Provide one of: 
+vimbuffer.buffer(string: Union[str, NoneType] = None,
+                 file: Union[str, NoneType] = None,
+                 editor: Union[str, NoneType] = None,
+                 fallbacks: Union[List[str], NoneType] = None,
+                 name_prefix: Union[str, NoneType] = None) -> str
+    Provide one of:
         string: A string to edit in a vimbuffer
         filepath: A file to edit in a vimbuffer
     If neither is provided, uses an empty string
-    fallbacks: A list of fallbacks for alternate editors. (e.g. ['vim', 'vi', 'nano'])
+    editor: editor to override the passed fallbacks/environment variable
+    fallbacks: A list of fallbacks for alternate editors (e.g. ['vim', 'vi', 'nano'])
     name_prefix: string prefix for the filename when opening in an editor
 
-    If string is provided, opens the file in and editor, lets the user edit it,
+    If string is provided, opens the file in an editor, lets the user edit it,
     and returns the string.
-    If a file is, it reads the file, lets the user modify it, writes back to
-    the file. It also returns the edited file contents.
+    If a file is, it reads the file, lets the user modify the contents, and writes
+    back to the file. It also returns the edited file contents.
 ```
 
 The editor can be overwritten by specifying environment variables, see below for resolution order.
@@ -66,6 +71,7 @@ edited_desc = vimbuffer.buffer(project_description, fallbacks=["nvim", "vim", "v
 Alternatively, if you want to leave your `$EDITOR` as a graphical text editor, you can set the `$VIMBUFFER_EDITOR` environment variable, which trumps all other choices. Specifically, the resolution order is:
 
 - `$VIMBUFFER_EDITOR`
+- `editor`
 - `fallbacks`(s) passed as keyword arguments in python
 - `$EDITOR`
 - `vim`

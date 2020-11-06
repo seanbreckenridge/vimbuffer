@@ -29,7 +29,7 @@ def get_editor(
         ed.strip()  # type: ignore[union-attr]
         for ed in filter(
             lambda e: e is not None,
-            [os.environ.get("VIMBUFFER_EDITOR")]
+            [os.environ.get("VIMBUFFER_EDITOR"), editor]
             + _editors  # type: ignore[operator]
             + [
                 os.environ.get("EDITOR"),
@@ -61,6 +61,7 @@ def buffer(
         string: A string to edit in a vimbuffer
         filepath: A file to edit in a vimbuffer
     If neither is provided, uses an empty string
+    editor: editor to override the passed fallbacks/environment variable
     fallbacks: A list of fallbacks for alternate editors (e.g. ['vim', 'vi', 'nano'])
     name_prefix: string prefix for the filename when opening in an editor
 

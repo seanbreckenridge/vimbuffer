@@ -1,7 +1,6 @@
 language: python
 dist: xenial
 python:
-  - "3.4"
   - "3.6"
   - "3.7"
   - "3.8"
@@ -10,5 +9,5 @@ install:
   - python3 setup.py install
 script:
  - pytest
- - mypy
+ - mypy ./vimbuffer/
 
