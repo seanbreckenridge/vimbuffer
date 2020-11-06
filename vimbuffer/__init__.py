@@ -3,8 +3,12 @@ import tempfile
 import shutil
 import subprocess
 
+from typing import Optional, List
 
-def get_editor(editors=[]):
+
+def get_editor(
+    editor: Optional[str] = None, editors: Optional[List[str]] = None
+) -> str:
     """
     editors: list of kwargs passed by user
 
@@ -18,17 +22,22 @@ def get_editor(editors=[]):
 
     Returns the first editor which has a corresponding binary
     """
-    editor_list = list(
-        map(
-            str.strip,
-            filter(
-                None,
-                [os.environ.get("VIMBUFFER_EDITOR")]
-                + editors
-                + [os.environ.get("EDITOR"), "vim", "vi",],
-            ),
+    if editor is not None:
+        return str(editor)
+    _editors: List[str] = editors or []
+    editor_list: List[str] = [
+        ed.strip()  # type: ignore[union-attr]
+        for ed in filter(
+            lambda e: e is not None,
+            [os.environ.get("VIMBUFFER_EDITOR")]
+            + _editors  # type: ignore[operator]
+            + [
+                os.environ.get("EDITOR"),
+                "vim",
+                "vi",
+            ],
         )
-    )
+    ]
     for e in editor_list:
         if shutil.which(e):
             return e
@@ -40,7 +49,13 @@ def get_editor(editors=[]):
         )
 
 
-def buffer(string=None, file=None, editor=None, fallbacks=[], name_prefix=None):
+def buffer(
+    string: Optional[str] = None,
+    file: Optional[str] = None,
+    editor: Optional[str] = None,
+    fallbacks: Optional[List[str]] = None,
+    name_prefix: Optional[str] = None,
+) -> str:
     """
     Provide one of:
         string: A string to edit in a vimbuffer
@@ -48,13 +63,13 @@ def buffer(string=None, file=None, editor=None, fallbacks=[], name_prefix=None):
     If neither is provided, uses an empty string
     fallbacks: A list of fallbacks for alternate editors (e.g. ['vim', 'vi', 'nano'])
     name_prefix: string prefix for the filename when opening in an editor
-    
+
     If string is provided, opens the file in an editor, lets the user edit it,
     and returns the string.
     If a file is, it reads the file, lets the user modify the contents, and writes
     back to the file. It also returns the edited file contents.
     """
-    EDITOR = get_editor(fallbacks)
+    EDITOR = get_editor(editor, fallbacks)
 
     # ensure either string or file was passed
     if string is None:
@@ -69,7 +84,6 @@ def buffer(string=None, file=None, editor=None, fallbacks=[], name_prefix=None):
                 "You cannot specify both `string` and `file` as input for a buffer"
             )
 
-
     tf = tempfile.NamedTemporaryFile(prefix=name_prefix, delete=False)
     tf.write(string.encode())
     tf.flush()
@@ -77,7 +91,7 @@ def buffer(string=None, file=None, editor=None, fallbacks=[], name_prefix=None):
     # cant seek to 0 and try to re-read, that has some issues (e.g. with vim on mac)
     # close and re-open the file
     tf.close()
-    with open(tf.name, 'r') as mod_tf:
+    with open(tf.name, "r") as mod_tf:
         edited_string = mod_tf.read()
     os.remove(tf.name)
 
