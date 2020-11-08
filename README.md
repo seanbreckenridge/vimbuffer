@@ -40,7 +40,7 @@ The editor can be overwritten by specifying environment variables, see below for
 
 ##### Examples
 
-```
+```python
 import vimbuffer
 
 # edit a string
@@ -55,7 +55,7 @@ This uses [`tempfile`](https://docs.python.org/3.8/library/tempfile.html) to cre
 
 You can specify a list of fallback editors; one you'd like to use instead of `$EDITOR`:
 
-```
+```python
 project_description="""
 ## <my-project>
 
