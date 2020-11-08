@@ -1,15 +1,13 @@
 import io
 from setuptools import setup, find_packages
 
-requirements = []
-
 # Use the README.md content for the long description:
 with io.open("README.md", encoding="utf-8") as fo:
     long_description = fo.read()
 
 setup(
     name="vimbuffer",
-    version="0.1.2",
+    version="0.1.3",
     url="https://gitlab.com/seanbreckenridge/vimbuffer",
     author="Sean Breckenridge",
     author_email="seanbrecke@gmail.com",
@@ -18,8 +16,8 @@ setup(
     long_description_content_type="text/markdown",
     license="MIT",
     packages=find_packages(include=["vimbuffer"]),
+    include_package_data=True,
     test_suite="tests",
-    install_requires=requirements,
     keywords="vim editor stream",
     classifiers=[
         "License :: OSI Approved :: MIT License",
