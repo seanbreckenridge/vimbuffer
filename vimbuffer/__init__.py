@@ -59,7 +59,7 @@ def buffer(
     """
     Provide one of:
         string: A string to edit in a vimbuffer
-        filepath: A file to edit in a vimbuffer
+        file: A file to edit in a vimbuffer
     If neither is provided, uses an empty string
     editor: editor to override the passed fallbacks/environment variable
     fallbacks: A list of fallbacks for alternate editors (e.g. ['vim', 'vi', 'nano'])
