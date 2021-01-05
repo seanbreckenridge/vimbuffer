@@ -8,7 +8,7 @@ with io.open("README.md", encoding="utf-8") as fo:
 setup(
     name="vimbuffer",
     version="0.1.3",
-    url="https://gitlab.com/seanbreckenridge/vimbuffer",
+    url="https://github.com/seanbreckenridge/vimbuffer",
     author="Sean Breckenridge",
     author_email="seanbrecke@gmail.com",
     description="Edit files, and strings in temporary vim (or some other console editor) buffers.",
