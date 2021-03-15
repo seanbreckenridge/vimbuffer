@@ -5,9 +5,10 @@ from setuptools import setup, find_packages
 with io.open("README.md", encoding="utf-8") as fo:
     long_description = fo.read()
 
+pkg = "vimbuffer"
 setup(
-    name="vimbuffer",
-    version="0.1.3",
+    name=pkg,
+    version="0.1.4",
     url="https://github.com/seanbreckenridge/vimbuffer",
     author="Sean Breckenridge",
     author_email="seanbrecke@gmail.com",
@@ -15,8 +16,9 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="MIT",
-    packages=find_packages(include=["vimbuffer"]),
+    packages=find_packages(include=[pkg]),
     include_package_data=True,
+    package_data={pkg: ["py.typed"]},
     test_suite="tests",
     keywords="vim editor stream",
     classifiers=[
