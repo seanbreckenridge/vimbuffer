@@ -2,6 +2,8 @@
 
 Edit files and strings in temporary vim (or some other console editor) buffers.
 
+I generally dont use this tool anymore and instead use [`click.edit`](https://click.palletsprojects.com/en/8.0.x/utils/#launching-editors)
+
 ## Installation
 
 #### Requires:
